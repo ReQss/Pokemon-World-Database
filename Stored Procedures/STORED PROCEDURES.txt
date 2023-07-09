@@ -1,0 +1,144 @@
+CREATE PROCEDURE InsertIntoGyms
+    @Name VARCHAR(255),
+    @BadgeName VARCHAR(255),
+    @Type VARCHAR(255),
+    @LeaderId INT
+AS
+BEGIN
+    INSERT INTO GYMS (name, badge_name, type, leader_id)
+    VALUES (@Name, @BadgeName, @Type, @LeaderId);
+END;
+
+CREATE PROCEDURE DeleteGym
+    @GymId INT
+AS
+BEGIN
+    DELETE FROM gyms WHERE gym_id = @GymId;
+END;
+
+
+CREATE PROCEDURE UpdateGym
+    @GymId INT,
+    @Name VARCHAR(255),
+    @BadgeName VARCHAR(255),
+    @Type VARCHAR(255),
+    @LeaderId INT
+AS
+BEGIN
+    UPDATE gyms
+    SET name = @Name,
+        badge_name = @BadgeName,
+        type = @Type,
+        leader_id = @LeaderId
+    WHERE gym_id = @GymId;
+END;
+
+
+
+
+// POKEMONS
+
+
+CREATE PROCEDURE InsertPokemon
+    @Name VARCHAR(50),
+    @Type1 VARCHAR(50),
+    @Type2 VARCHAR(50),
+    @EvolutionLevel INT,
+    @Generation INT
+AS
+BEGIN
+    INSERT INTO pokemons (name, type1, type2, evolution_level, generation)
+    VALUES (@Name, @Type1, @Type2, @EvolutionLevel, @Generation)
+END
+
+
+CREATE PROCEDURE DeletePokemon
+    @PokemonId INT
+AS
+BEGIN
+    DELETE FROM pokemons WHERE pokemon_id = @PokemonId;
+END
+
+
+CREATE PROCEDURE UpdatePokemon
+    @PokemonId INT,
+    @Name VARCHAR(50),
+    @Type1 VARCHAR(50),
+    @Type2 VARCHAR(50),
+    @EvolutionLevel VARCHAR(50),
+    @Generation INT
+AS
+BEGIN
+    UPDATE pokemons
+    SET name = @Name,
+        type1 = @Type1,
+        type2 = @Type2,
+        evolution_level = @EvolutionLevel,
+        generation = @Generation
+    WHERE pokemon_id = @PokemonId;
+END
+
+
+//people
+CREATE PROCEDURE InsertPerson
+    @FirstName VARCHAR(255),
+    @LastName VARCHAR(255),
+    @Phone VARCHAR(255),
+    @Address VARCHAR(255),
+    @PlayerId INT,
+    @LeaderId INT
+AS
+BEGIN
+    INSERT INTO PEOPLE (fname, lname, phone, address, player_id, leader_id)
+    VALUES (@FirstName, @LastName, @Phone, @Address, @PlayerId, @LeaderId);
+END;
+
+CREATE PROCEDURE DeletePerson
+    @PersonId INT
+AS
+BEGIN
+    DELETE FROM people WHERE person_id = @PersonId;
+END;
+
+
+CREATE PROCEDURE UpdatePerson
+    @PersonId INT,
+    @FirstName VARCHAR(255),
+    @LastName VARCHAR(255),
+    @Phone VARCHAR(255),
+    @Address VARCHAR(255),
+    @PlayerId INT
+AS
+BEGIN
+    UPDATE people
+    SET fname = @FirstName,
+        lname = @LastName,
+        phone = @Phone,
+        address = @Address,
+        player_id = @PlayerId
+    WHERE person_id = @PersonId;
+END;
+
+
+CREATE PROCEDURE InsertPlayerHand
+    @playerId INT,
+    @pokemonId INT,
+    @pokeLevel INT,
+    @evolutionStage INT,
+    @relation VARCHAR(50),
+    @moveId INT
+AS
+BEGIN
+    INSERT INTO PLAYER_HAND (player_id, pokemon_id, poke_lvl, pok_evolution_stage, relation_with_pokemon, move_id)
+    VALUES (@playerId, @pokemonId, @pokeLevel, @evolutionStage, @relation, @moveId)
+END
+
+
+CREATE PROCEDURE DeletePlayerHand
+    @playerId INT,
+    @pokemonId INT
+AS
+BEGIN
+    DELETE FROM PLAYER_HAND
+    WHERE player_id = @playerId AND pokemon_id = @pokemonId
+END

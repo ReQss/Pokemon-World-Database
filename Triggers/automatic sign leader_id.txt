@@ -1,0 +1,12 @@
+CREATE TRIGGER Assign_leader_id
+ON PLAYER_HAND
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE ph
+    SET ph.leader_id = p.leader_id
+    FROM PLAYER_HAND ph
+    JOIN inserted i ON ph.player_hand_id = i.player_hand_id
+    JOIN PEOPLE p ON i.player_id = p.player_id;
+END;

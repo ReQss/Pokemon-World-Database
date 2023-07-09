@@ -1,0 +1,26 @@
+CREATE TRIGGER PlayerHand_MaxRecords
+ON PLAYER_HAND
+INSTEAD OF INSERT, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    IF EXISTS (
+        SELECT player_id
+        FROM (
+            SELECT player_id, COUNT(*) AS record_count
+            FROM PLAYER_HAND
+            GROUP BY player_id
+        ) AS sub
+        WHERE sub.player_id IN (SELECT player_id FROM inserted)
+        AND sub.record_count >= 6
+    )
+    BEGIN
+        RAISERROR ('you cannot add 7th pokemon to your hand.', 16, 1);
+        RETURN;
+    END;
+    
+    INSERT INTO PLAYER_HAND (player_id, leader_id, pokemon_id, poke_lvl, pok_evolution_stage, relation_with_pokemon, move_id)
+    SELECT player_id, leader_id, pokemon_id, poke_lvl, pok_evolution_stage, relation_with_pokemon, move_id
+    FROM inserted;
+END;

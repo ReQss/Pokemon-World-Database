@@ -1,0 +1,13 @@
+CREATE INDEX idx_gym_id ON cities (gym_id);
+CREATE INDEX idx_region_id ON regions (region_id);
+CREATE INDEX idx_island_id ON islands (island_id);
+CREATE INDEX idx_gym_id ON gyms (gym_id);
+CREATE INDEX idx_building_id ON buildings (bulding_id);
+Primary keys:
+Gyms: gym_id
+Regions: region_id
+Islands : island_id
+Players: player_id
+Buildings: bulding_id
+people : person_id
+pokemons: pokemon_id

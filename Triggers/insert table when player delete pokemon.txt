@@ -1,0 +1,40 @@
+
+CREATE TABLE DELETED_POKS_FROM_HAND (
+    player_hand_id INT,
+    player_id INT,
+    leader_id INT,
+    pokemon_id INT,
+    poke_lvl INT,
+    pok_evolution_stage INT,
+    relation_with_pokemon VARCHAR(30),
+    move_id INT,
+    delete_date DATETIME DEFAULT GETDATE()
+);
+
+
+CREATE TRIGGER delete_poke_from_hand
+ON PLAYER_HAND
+FOR DELETE
+AS
+BEGIN
+    INSERT INTO DELETED_POKS_FROM_HAND (
+        player_hand_id,
+        player_id,
+        leader_id,
+        pokemon_id,
+        poke_lvl,
+        pok_evolution_stage,
+        relation_with_pokemon,
+        move_id
+    )
+    SELECT
+        player_hand_id,
+        player_id,
+        leader_id,
+        pokemon_id,
+        poke_lvl,
+        pok_evolution_stage,
+        relation_with_pokemon,
+        move_id
+    FROM deleted;
+END;

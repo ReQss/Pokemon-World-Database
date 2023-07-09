@@ -1,0 +1,15 @@
+CREATE TRIGGER PreventLeaderDelete
+ON LEADERS
+INSTEAD OF DELETE
+AS
+BEGIN
+IF EXISTS (SELECT 1 FROM deleted WHERE leader_id IN (SELECT leader_id FROM GYMS))
+BEGIN
+RAISERROR('Deleting a leader signed to gym is not allowed.', 16, 1);
+ROLLBACK TRANSACTION;
+END
+ELSE
+BEGIN
+DELETE FROM LEADERS WHERE leader_id IN (SELECT leader_id FROM deleted);
+END
+END

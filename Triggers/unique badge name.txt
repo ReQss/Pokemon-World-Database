@@ -1,0 +1,13 @@
+```sql
+CREATE TRIGGER UniqueBadgeNameTrigger
+ON GYMS
+	AFTER INSERT, UPDATE
+	AS
+	BEGIN
+	IF EXISTS (SELECT 1 FROM GYMS WHERE badge_name IN (SELECT badge_name FROM inserted GROUP BY badge_name HAVING COUNT(*) > 1))
+	BEGIN
+	RAISERROR('Each gym must have a unique badge name.', 16, 1);
+	ROLLBACK TRANSACTION;
+	END
+END
+```

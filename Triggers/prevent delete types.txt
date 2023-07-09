@@ -1,0 +1,8 @@
+CREATE TRIGGER PreventDeleteTypes
+	ON TYPES
+	INSTEAD OF DELETE
+	AS
+	BEGIN
+	ROLLBACK;
+	RAISERROR('Delete rows in TYPES is not allowed.', 16, 1);
+END;

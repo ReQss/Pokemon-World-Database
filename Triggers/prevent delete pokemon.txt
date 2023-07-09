@@ -1,0 +1,8 @@
+CREATE TRIGGER prevent_delete_pokemon
+ON POKEMONS
+INSTEAD OF DELETE
+AS
+BEGIN
+    RAISERROR ('You cannot delete pokemon!', 16, 1);
+    ROLLBACK TRANSACTION;
+END;

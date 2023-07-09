@@ -1,0 +1,27 @@
+CREATE VIEW displayCities
+AS SELECT city_id,name,population FROM CITIES;
+CREATE VIEW displayIslands AS
+SELECT island_id,name,population,area FROM islands;
+CREATE VIEW displayRegions AS
+SELECT * FROM regions;
+
+CREATE VIEW displayGym2 AS
+SELECT gyms.gym_id,gyms.name,gyms.badge_name,gyms.type,fname +' '+ lname AS leader,leaders.leader_id, cities.name AS 'City name',BUILDINGS.name AS 'Name of building' FROM gyms LEFT JOIN leaders ON leaders.leader_id = gyms.leader_id LEFT JOIN PEOPLE on people.leader_id = leaders.leader_id LEFT JOIN CITIES ON cities.gym_id = gyms.gym_id LEFT JOIN BUILDINGS ON BUILDINGS.bulding_id = cities.bulding_id;
+
+CREATE VIEW displayPeople AS 
+SELECT person_id, fname,lname,phone,address,leaders.leader_id,players.player_id from people LEFT JOIN leaders ON people.leader_id = leaders.leader_id LEFT JOIN players ON players.player_id = people.player_id
+
+
+CREATE VIEW displayHand AS
+SELECT PLAYER_HAND.pokemon_id,PLAYER_HAND.pok_evolution_stage,PLAYER_HAND.relation_with_pokemon,PLAYER_HAND.poke_lvl FROM PLAYERS LEFT JOIN PLAYER_HAND ON PLAYER_HAND.player_id = PLAYERS.player_id;
+
+CREATE VIEW displayPlayer AS
+SELECT players.player_id,fname,lname,PLAYERS.collect_badges,PLAYERS.won_duels FROM PEOPLE LEFT JOIN PLAYERS ON PEOPLE.player_id = PLAYERS.player_id;
+
+
+
+CREATE VIEW displayInventory AS
+SELECT PLAYER_HAND.pokemon_id,PLAYER_HAND.pok_evolution_stage,PLAYER_HAND.relation_with_pokemon,PLAYER_HAND.poke_lvl FROM PLAYERS LEFT JOIN PLAYER_HAND ON PLAYER_HAND.player_id = PLAYERS.player_id LEFT JOIN PEOPLE ON people.player_id = players.player_id;
+
+
+
